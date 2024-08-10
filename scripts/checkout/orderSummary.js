@@ -1,7 +1,7 @@
 import { cart, removeFromCart, updateDeliveryOption} from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 
 
@@ -16,23 +16,13 @@ export function renderOrderSummary () {
     cart.forEach((cartItem) => {
 
         const productId =cartItem.productId
-        let matchingProduct;
 
-        products.forEach((product) => {
-            if(productId === product.id) {
-                matchingProduct = product
-            }
-        });
-    /* check for the deliveryOpton selected in the cart, check the delivery option 
-    look up list and get the object with the id found. using the deliverydays property, 
-    calculate the delivery date. */
-        const deliveryId = cartItem.deliveryOptionId
-        let deliveryDue
-        deliveryOptions.forEach((deliveryOption) => {
-            if(deliveryOption.id === deliveryId) {
-                deliveryDue =deliveryOption
-            }
-        })
+        const matchingProduct = getProduct(productId)
+    
+        const deliveryId = cartItem.deliveryOptionId;
+
+        const deliveryDue = getDeliveryOption(deliveryId)
+
         const today = dayjs();
         const deliveryDate = today.add(deliveryDue.deliveryDays,'days');
         const dateString = deliveryDate.format('dddd, MMMM D');
@@ -56,7 +46,7 @@ export function renderOrderSummary () {
                     </div>
                     <div class="product-quantity">
                         <span>
-                        Quantity: <span class="quantity-label">${cart.quantity}</span>
+                        Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                         </span>
                         <span class="update-quantity-link link-primary">
                         Update
