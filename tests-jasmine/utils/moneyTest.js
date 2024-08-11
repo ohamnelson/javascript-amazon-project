@@ -1,4 +1,4 @@
-import {formatCurrency} from '../scripts/utils/money.js';
+import {formatCurrency} from '../../scripts/utils/money.js';
 
 // describe is used to create a test SubmitEvent(a group of tests) 
 // while it is used to create a test.
