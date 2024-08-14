@@ -1,17 +1,17 @@
 class Cart {
     cartItems;
-    localStoragekey; 
+    #localStorageKey; 
 
     // The constructor object runs after the class has been created.
-    // this points ot the object we generate
+    // this points to the object we generate
     constructor(localStorageKey) {
-        this.localStorageKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;
+        this.#loadFromStorage();
     }
 
-    loadFromStorage() {
+    #loadFromStorage() {
         // this accesses the outer object
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [
             {
                 productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
                 quantity: 2,
@@ -29,7 +29,7 @@ class Cart {
         localstorage only takes strings. 
         So convert Javascript object to json
         */
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     addToCart(productId) {
