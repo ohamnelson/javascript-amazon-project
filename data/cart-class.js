@@ -3,7 +3,7 @@ class Cart {
     #localStorageKey; 
 
     // The constructor object runs after the class has been created.
-    // this points to the object we generate
+    // this points to the object we generate. It is used for set up code.
     constructor(localStorageKey) {
         this.#localStorageKey = localStorageKey;
         this.#loadFromStorage();
