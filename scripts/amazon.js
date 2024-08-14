@@ -42,6 +42,8 @@ products.forEach((product) => {
                     <option value="10">10</option>
                     </select>
                 </div>
+                
+                ${product.extraInfoHTML()}
 
                 <div class="product-spacer"></div>
 
@@ -57,6 +59,7 @@ products.forEach((product) => {
         </div>`;
 })
 
+// polymorphism: ability to call a method with knowing its class or using if statements. Line46
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
