@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 // runs all the code inside the file
 // import '../data/cart-class.js';
@@ -9,13 +9,9 @@ import { loadCart } from "../data/cart.js";
 // run the async function (loadproducts), wait for it to finish
 // then run resolve. Resolve makes it go to the next step
 
-
+// when using resolve all, the .then can access the values passed in resolve.
 Promise.all([
-    new Promise((resolve) => {
-        loadProducts(() => {
-            resolve('value1');
-        });
-    }),
+    loadProductsFetch(),
     new Promise((resolve) => {
         loadCart(() => {
             resolve('value2');
