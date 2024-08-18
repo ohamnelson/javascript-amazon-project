@@ -6,10 +6,31 @@ import { loadCart } from "../data/cart.js";
 // import '../data/cart-class.js';
 // import '../data/backend-practice.js'
 
+async function loadPage() {
+    /*
+    async makes a function return a promise
+    await lets us wait for a promise to finish
+    before going to the next line
+    */
+    await loadProductsFetch()
+
+    await new Promise((resolve) => {
+        loadCart(() => {
+            resolve('value2');
+        });
+    });
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+
+loadPage();
+
+
 // run the async function (loadproducts), wait for it to finish
 // then run resolve. Resolve makes it go to the next step
 
 // when using resolve all, the .then can access the values passed in resolve.
+/*
 Promise.all([
     loadProductsFetch(),
     new Promise((resolve) => {
@@ -23,6 +44,7 @@ Promise.all([
     renderOrderSummary();
     renderPaymentSummary();
 })
+*/
 
 
 
