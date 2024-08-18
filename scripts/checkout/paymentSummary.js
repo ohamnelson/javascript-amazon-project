@@ -79,7 +79,7 @@ export function renderPaymentSummary() {
                 console.log('Unexpected error. Try again later');
             }
             /*
-            window.location is used to get the url of the webpage and to 
+            window.location.href is used to get the url of the webpage and to 
             redirect the browser to a new page.
             */
             window.location.href = 'orders.html';
