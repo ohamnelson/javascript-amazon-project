@@ -12,13 +12,19 @@ async function loadPage() {
     await lets us wait for a promise to finish
     before going to the next line
     */
+   try{
     await loadProductsFetch()
 
     await new Promise((resolve) => {
         loadCart(() => {
             resolve('value2');
         });
-    });
+    });  
+    
+   } catch(error) {
+    console.log('Unexpected error. Please try again later');
+   }
+    
     renderOrderSummary();
     renderPaymentSummary();
 }
