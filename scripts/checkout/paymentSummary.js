@@ -2,6 +2,7 @@ import { cart } from "../../data/cart.js";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
 import {formatCurrency} from "../utils/money.js"
+import { addOrder } from "../../data/order.js";
 
 export function renderPaymentSummary() {
     let productPriceCents = 0;
@@ -50,9 +51,39 @@ export function renderPaymentSummary() {
             <div class="payment-summary-money">$${formatCurrency(totalCents)}</div>
         </div>
 
-        <button class="place-order-button button-primary">
+        <button class="place-order-button button-primary
+            js-place-order">
             Place your order
         </button>`;
     
-    document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML     
+    document.querySelector('.js-payment-summary')
+        .innerHTML = paymentSummaryHTML     
+    
+    document.querySelector('.js-place-order')
+        .addEventListener('click', async () => {
+            try {
+                const response = await fetch('https://supersimplebackend.dev/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cart:cart
+                    })
+                })
+                const order = await response.json() /* response.JSON is also a promise so you can await it */
+                addOrder(order)
+                console.log(order);
+
+            } catch(error) {
+                console.log('Unexpected error. Try again later');
+            }
+            /*
+            window.location is used to get the url of the webpage and to 
+            redirect the browser to a new page.
+            */
+            window.location.href = 'orders.html';
+            
+        })
+
 }
